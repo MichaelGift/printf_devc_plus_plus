@@ -50,7 +50,7 @@ void handle_width_flag(int num_width, Flags flags, int num, void (*specific_prin
         // Left-justified - padding on the right
         while (num_spaces > 0)
         {
-            _putchar('_');
+            _putchar(' ');
             num_spaces--;
         }
     }
@@ -61,7 +61,8 @@ void handle_width_flag(int num_width, Flags flags, int num, void (*specific_prin
         {
         	if (flags.zero_flag)
         		_putchar('0');
-            _putchar('_');
+        	else
+            	_putchar(' ');
             num_spaces--;
         }
         specific_print_function(num, flags);

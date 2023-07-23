@@ -10,6 +10,7 @@ void handle_char(va_list args, Flags flags)
 }
 void print_char(int c, Flags flags)
 {
+	flags.plus_flag = 0;
 	handle_space_or_plus_flag(flags);
 	_putchar(c);
 }

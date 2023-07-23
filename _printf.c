@@ -21,11 +21,11 @@ int _printf(const char *format, ...)
 		{'o', handle_octal},
 		{'x', handle_hexadecimal},
 		{'X', handle_hexadecimal},
-//		{'p', handle_pointer},
-//		{'b', handle_binary},
-//		{'r', handle_reverse},
-//		{'R', handle_rot13},
-//		{'S', handle_custom_S}
+		{'p', handle_pointer},
+		{'b', handle_binary},
+		{'r', handle_reverse},
+		{'R', handle_rot13},
+		{'S', handle_custom_S}
 	};
 	
 	
@@ -82,13 +82,6 @@ int _printf(const char *format, ...)
                 }
                 i++;
 			}
-			int field_width = 0;
-            while (isdigit(format[i]))
-            {
-                field_width = (field_width * 10) + (format[i] - '0');
-                i++;
-            }
-            flags.field_width = field_width;
             int precision = -1; // Initialize to -1 to indicate that no precision is specified
 			if (format[i] == '.')
 			{
@@ -109,6 +102,13 @@ int _printf(const char *format, ...)
     			i++; // Move to the next character
 			}
 			flags.zero_flag = zero_flag;
+			int field_width = 0;
+            while (isdigit(format[i]))
+            {
+                field_width = (field_width * 10) + (format[i] - '0');
+                i++;
+            }
+            flags.field_width = field_width;
 
 			for (j = 0; j < sizeof(format_handlers) / sizeof(format_handlers[0]); j++)
 			{
