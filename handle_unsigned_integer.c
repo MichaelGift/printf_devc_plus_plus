@@ -3,14 +3,13 @@
 #include "main.h"
 void handle_unsigned_integer(va_list args, Flags flags)
 {
-    unsigned int num = va_arg(args, unsigned int);
-    
-    // Handle special case for zero
-    if (num == 0)
-    {
-        _putchar('0');
-        return;
-    }
+    int num = length_flag_checker(args, flags);
+    int num_width = calculate_field_width(num);
+    handle_width_flag(num_width, flags, num, print_unsigned_integer);
+}
+void print_unsigned_integer(unsigned int num, Flags flags)
+{
+    handle_space_or_plus_flag(flags);
 
     // Count the number of digits in the unsigned integer
     int digits = 0;
@@ -38,4 +37,3 @@ void handle_unsigned_integer(va_list args, Flags flags)
         divisor /= 10;
     }
 }
-

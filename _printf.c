@@ -21,11 +21,11 @@ int _printf(const char *format, ...)
 		{'o', handle_octal},
 		{'x', handle_hexadecimal},
 		{'X', handle_hexadecimal},
-		{'p', handle_pointer},
-		{'b', handle_binary},
-		{'r', handle_reverse},
-		{'R', handle_rot13},
-		{'S', handle_custom_S}
+//		{'p', handle_pointer},
+//		{'b', handle_binary},
+//		{'r', handle_reverse},
+//		{'R', handle_rot13},
+//		{'S', handle_custom_S}
 	};
 	
 	
@@ -54,9 +54,10 @@ int _printf(const char *format, ...)
 				{'+', &(flags.plus_flag)},
         		{' ', &(flags.space_flag)},
         		{'#', &(flags.hash_flag)},
+        		{'-', &(flags.minus_flag)},
 			};
 			
-			while (format[i] == '+' || format[i] == ' ' || format[i] == '#' || format[i] == 'h' || format[i] == 'l' )
+			while (format[i] == '+' || format[i] == ' ' || format[i] == '#' || format[i] == 'h' || format[i] == 'l' || format[i] == '-' )
 			{
 				// Search the flag_map for the current flag character and set the flag if found
                 for (j = 0; j < sizeof(flag_map) / sizeof(flag_map[0]); j++)
@@ -75,6 +76,7 @@ int _printf(const char *format, ...)
                     		break;
 						}
                         *(flag_map[j].flag_pointer) = 1; // Set the flag using the flag pointer
+//                        printf("%d", flags.minus_flag);
                         break;
                     }
                 }
@@ -107,14 +109,6 @@ int _printf(const char *format, ...)
     			i++; // Move to the next character
 			}
 			flags.zero_flag = zero_flag;
-			int minus_flag = 0; // Initialize to 0 (false) to indicate that the - flag is not present
-			if (format[i] == '-')
-			{
-    			minus_flag = 1; // Set to 1 (true) if the - flag is present
-    			i++; // Move to the next character
-			}
-			flags.minus_flag = minus_flag;
-
 
 			for (j = 0; j < sizeof(format_handlers) / sizeof(format_handlers[0]); j++)
 			{

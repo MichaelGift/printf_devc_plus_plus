@@ -4,8 +4,14 @@
 
 void handle_hexadecimal(va_list args, Flags flags) 
 {
-    unsigned int num = va_arg(args, unsigned int);
-    char buffer[32]; 
+    unsigned int num = length_flag_checker(args, flags);
+    int num_width = calculate_field_width(num);
+    handle_width_flag(num_width, flags, num, print_hexadecimal);
+}
+void print_hexadecimal(unsigned int num, Flags flags)
+{
+	handle_space_or_plus_flag(flags);
+	char buffer[32]; 
     int i = 0;
 
     if (num == 0) 

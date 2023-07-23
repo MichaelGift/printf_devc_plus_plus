@@ -5,20 +5,11 @@ void handle_integer(va_list args, Flags flags)
 {
 	int i;
 	int num = length_flag_checker(args, flags);
-	int num_width = calculate_field_width(num); // Calculate the width of the number
-
-    // Print padding characters (spaces) if necessary before the number
-    if (flags.field_width > num_width)
-    {
-        int padding = flags.field_width - num_width;
-        while (padding > 0)
-        {
-        	if (num < 0)
-        		padding--;
-            _putchar(' ');
-            padding--;
-        }
-    }
+	int num_width = calculate_field_width(num);
+	handle_width_flag(num_width, flags, num, print_integer);
+}
+void print_integer(int num, Flags flags)
+{
 	if (num < 0)
 	{
 		_putchar('-');
@@ -26,31 +17,27 @@ void handle_integer(va_list args, Flags flags)
 	}
 	else
     {
-        if (flags.plus_flag)
-            _putchar('+'); // Print "+" sign for positive numbers if the "+" flag is set
-        else if (flags.space_flag)
-            _putchar(' '); // Print space for positive numbers if the "space" flag is set
+        handle_space_or_plus_flag(flags);
     }
 	
-	if (num  == 0)
+	if (num == 0)
 	{
 		_putchar('0');
 		return;
 	}
-
-    print_digits(num);
+	
+	print_num_recursive(num);
 }
-
-
-/**
-* print_digits - prints digits recursively
-* @n: number to printed
-*/
-void print_digits(int n)
+void print_num_recursive(int num)
 {
-	if (n == 0)
+	if (num < 0)
+	{
+		_putchar('-');
+		num = -num;
+	}
+	if (num == 0)
         return;
 
-    print_digits(n / 10);
-    _putchar((n % 10) + '0');
+    print_num_recursive(num / 10);
+    _putchar((num % 10) + '0');
 }

@@ -4,15 +4,16 @@
 
 void handle_octal(va_list args, Flags flags)
 {
-	unsigned int num = va_arg(args, unsigned int);
+	int num = length_flag_checker(args, flags);
+    int num_width = calculate_field_width(num);
+    handle_width_flag(num_width, flags, num, print_octal);
+}
+void print_octal(unsigned int num, Flags flags)
+{
+	
 	char buffer[32];
     int i = 0;
-
-    if (num == 0) 
-	{
-        _putchar('0'); // Special case for 0
-        return;
-    }
+    handle_space_or_plus_flag(flags);
 	
 	// Convert the integer to octal representation
 	while (num != 0) 
